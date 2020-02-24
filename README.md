@@ -8,3 +8,6 @@ Computer's strategy based on opponent's decisions.
 Computer's strategy based on past results.
 
 Completely besides the point, click [here](/exam_Pedro_Espinosa.py) to open the file of the function I created in the exam. You like?
+
+
+I am in developer mode now. Watch me play.
