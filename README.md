@@ -13,3 +13,10 @@ Computer's strategy based on opponent's decisions.
 Computer's strategy based on past results.
 
 The programme asks the experimenter for subject ID and stores the data in the experiments csv file.
+
+
+
+References
+Peirce, J. W., Gray, J. R., Simpson, S., MacAskill, M. R., Höchenberger, R., Sogo, H., Kastman, E., Lindeløv,
+J. (2019). PsychoPy2: experiments in behavior made easy. Behavior Research Methods. 10.3758/s13428-018-
+01193-y
