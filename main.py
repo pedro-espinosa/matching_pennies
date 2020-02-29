@@ -6,7 +6,8 @@ Script for the matching_pennies programme.
 
 from psychopy import visual, core, event, data, monitors
 import os
-import hardware_mod
+#import hardware_mod  #Do I really need this? Read up more on psychopy and monitors
+import random
 
 #%% Hardware specifications
 """
@@ -71,19 +72,18 @@ Heads or Tails?
 (Q to quit)
 """
 
-game_round = 0
-game_round_txt = 'Round ' + str(game_round + 1)
+
 
 #stimuli
 welcome = visual.TextStim(win, text = welcome_text, height = 0.06)
 instructions = visual.TextStim(win, text = instructions_text,)
 choice = visual.TextStim(win, text = choice_text)
-hh = visual.TextStim(win, text = "Computer: H\nYou: H\n\nYou get one point!", color = 'green',)
-tt = visual.TextStim(win, text = "Computer: T\nYou: T\n\nYou get one point!", color = 'green')
-ht = visual.TextStim(win, text = "Computer: H\nYou: T\n\nYou lose one point", color = 'red')
-th = visual.TextStim(win, text = "Computer: T\nYou: H\n\nYou lose one point", color = 'red')
+hh = visual.TextStim(win, text = "Computer: H\nYou: H\n\nYou get one point!\n\nPress the space bar to continue", color = 'green',)
+tt = visual.TextStim(win, text = "Computer: T\nYou: T\n\nYou get one point!\n\nPress the space bar to continue", color = 'green')
+ht = visual.TextStim(win, text = "Computer: H\nYou: T\n\nYou lose one point\n\nPress the space bar to continue", color = 'red')
+th = visual.TextStim(win, text = "Computer: T\nYou: H\n\nYou lose one point\n\nPress the space bar to continue", color = 'red')
 
-round_stim = visual.TextStim(win, text = game_round_txt)
+
 
 #%% Keyboard
 
@@ -94,26 +94,60 @@ allowed_keys = key_meanings.keys()
 #%% Intro screen
 
 #Show welcome and wait for key press
-welcome.draw(win)
+welcome.draw()
 win.flip()
 event.waitKeys(keyList = 'space')
 #Show instructions and wait for key press
-instructions.draw(win)
+instructions.draw()
 win.flip()
 event.waitKeys(keyList = 'space')
 #%% Rounds
 
-round_stim.draw(win)
-win.flip()
-core.wait(1.5)
-
-choice.draw(win)
-win.flip()
-event.waitKeys(keyList = allowed_keys)
+game_round = 1
 
 
-
-
+while True:
+    #Present round number
+    game_round_txt = 'Round ' + str(game_round)
+    round_stim = visual.TextStim(win, text = game_round_txt)
+    round_stim.draw()
+    win.flip()
+    core.wait(1.5)
+    
+    #Generate computer's response
+    comp_options = ['h', 't']
+    
+    #Computer responds with equal probability
+    comp_response = random.choice(comp_options)
+    
+    
+    #Present choice and record response
+    choice.draw()
+    win.flip()
+    key_press = event.waitKeys(keyList = allowed_keys)
+    
+    #Extract response
+    response = key_press[0]
+    
+    #Branch outcomes for the response
+    if response == 'q':
+        break
+    elif comp_response == 'h' and response == 'h':
+        hh.draw()
+        win.flip()
+    elif comp_response == 't' and response == 'h':
+        th.draw()
+        win.flip()
+    elif comp_response == 'h' and response == 't':
+        ht.draw()
+        win.flip()
+    elif comp_response == 't' and response == 't':
+        tt.draw()
+        win.flip()
+        
+    game_round = game_round + 1
+    event.waitKeys(keyList = 'space')
+    
 win.close()
 
 
