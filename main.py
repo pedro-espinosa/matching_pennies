@@ -24,19 +24,18 @@ print("Dear experimenter, Welcome to the matching pennies experiment. Before han
 
 
 #subject_id = input('Subject ID: ')
-#comp_str = input(
-#"""
-#Type in the number of the strategy you want the computer to use:
-#1 = Random. Computer chooses face randomly with no bias.
-#2 = Bias towards heads
-#3 = Bias towards tails
-#4 = Switch from own previous decision
-#5 = Choose opposite of subject's previous decision
-#6 = Choose subject's previous decision
-#7 = Assign one of the previous 6 strategies randomly
+comp_str = input(
+"""
+Type in the letter of the strategy you want the computer to use:
+a = Random. Computer chooses face randomly with no bias.
+b = Bias towards heads
+c = Bias towards tails
+d = Switch from own previous decision
+e = Choose opposite of subject's previous decision
+f = Choose subject's previous decision
+g = Assign one of the previous 6 strategies randomly
     
-#number: 
-#""")
+strategy: """)
 
 
 #%% Window
@@ -117,9 +116,15 @@ while True:
     #Generate computer's response
     comp_options = ['h', 't']
     
-    #Computer responds with equal probability
-    comp_response = random.choice(comp_options)
+    #A Computer responds with equal probability
+    if comp_str == 'a':
+        comp_response = random.choice(comp_options)
     
+    #B Computer is biased towards Heads
+    h_bias = [7, 3]
+    if comp_str == 'b':
+        comp_response = random.choices(comp_options, weights = h_bias, k=1)
+        comp_response = comp_response[0]
     
     #Present choice and record response
     choice.draw()
