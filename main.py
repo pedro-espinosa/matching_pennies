@@ -20,7 +20,7 @@ monitors.Monitor.setSizePix(mon, monitor_dims)
 """
 #%% Experimenter input
 
-print("Dear experimenter, Welcome to the matching pennies experiment. Before handing the computer over to the participant pleasefill in the following specifications.")
+print("Dear experimenter, Welcome to the matching pennies experiment. Before handing the computer over to the participant please fill in the following specifications.")
 
 
 #subject_id = input('Subject ID: ')
@@ -60,9 +60,9 @@ instructions_text = """
 Instructions:
 Press 'H' to choose Heads
 Press 'T' to choose Tails
-Press 'Q' to quit
+Or Press 'Q' at any time to quit
 
-Now press space bar to start.
+Now, press the space bar to start.
 """
 
 choice_text = """
@@ -125,6 +125,10 @@ while True:
     if comp_str == 'b':
         comp_response = random.choices(comp_options, weights = h_bias, k=1)
         comp_response = comp_response[0]
+        
+    #C Computer is biased towards Tails
+
+        
     
     #Present choice and record response
     choice.draw()
@@ -151,7 +155,12 @@ while True:
         win.flip()
         
     game_round = game_round + 1
-    event.waitKeys(keyList = 'space')
+    continue_or_quit = event.waitKeys(keyList = ['space', 'q'])
+    continue_or_quit = continue_or_quit[0]
+    
+    if continue_or_quit == 'q':
+        break
+    
     
 win.close()
 
