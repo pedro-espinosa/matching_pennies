@@ -37,6 +37,7 @@ comp_str = strategy_functions.input_comp_str()
 
 win = visual.Window(size = (1200, 850), color = 'black', monitor = 'my monitor')
 
+print("The window has been created")
 
 #%% Text stimuli
 
@@ -109,11 +110,11 @@ while True:
     core.wait(1.5)
     
     #Generate computer's response
-    comp_options = ['h', 't']
+    comp_options = ['h', 't'] #probably have to delete this later as it is in strategy_functions
     
     #A Computer responds with equal probability
     if comp_str == 'a':
-        comp_response = random.choice(comp_options)
+        comp_response = strategy_functions.strategy_a()
     
     #B Computer is biased towards Heads
     h_bias = [7, 3]
