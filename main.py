@@ -8,6 +8,7 @@ from psychopy import visual, core, event, data, monitors
 import os
 #import hardware_mod  #Do I really need this? Read up more on psychopy and monitors
 import random
+import strategy_functions
 
 #%% Hardware specifications
 """
@@ -24,19 +25,13 @@ print("Dear experimenter, Welcome to the matching pennies experiment. Before han
 
 
 #subject_id = input('Subject ID: ')
-comp_str = input(
-"""
-Type in the letter of the strategy you want the computer to use:
-a = Random. Computer chooses face randomly with no bias.
-b = Bias towards heads
-c = Bias towards tails
-d = Switch from own previous decision
-e = Choose opposite of subject's previous decision
-f = Choose subject's previous decision
-g = Assign one of the previous 6 strategies randomly
-    
-strategy: """)
 
+#Let experimenter define computer strategy
+comp_str = strategy_functions.input_comp_str()
+
+
+#if comp_str = 'b':
+    
 
 #%% Window
 
