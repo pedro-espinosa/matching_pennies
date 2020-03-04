@@ -81,7 +81,8 @@ def input_comp_str():
     
     RETURNS
     The letter of the strategy and in the case of biased strategies (b and c) it also returns
-    the weighting of the bias.
+    the weighting of the bias as a list of two values, the first value corresponds to the bias
+    weighting of the side of interest.
     """
     
     allowed_inputs = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
@@ -108,7 +109,7 @@ def input_comp_str():
             strategy = input("Please enter a valid letter: ")
             strategy = strategy.lower().strip()
 
-    #Strategy b
+    #Strategy b. Calls input_bias_weighting to collect input from experimenter
     if strategy == 'b':
         h_bias = input_bias_weighting(strategy)
         return strategy, h_bias
@@ -140,24 +141,37 @@ def strategy_a():
     comp_response = random.choice(comp_options)
     return comp_response
 
-"""
-# B
-def strategy_b(h_bias = strategy[1]):
-h_bias = strategy[1]
-comp_response = random.choices(comp_options, weights = h_bias, k=1)
-comp_response = comp_response[0]
-print(comp_response)
-"""
-# C
-    
-    
-if __name__ == '__main__':
-    output = input_comp_str()
-    print(output)
 
+# B
+def strategy_b(h_bias):
+    comp_response = random.choices(comp_options, weights = h_bias, k=1)
+    comp_response = comp_response[0]
+    return comp_response
+
+# C
+def strategy_c(t_bias):
+    comp_response = random.choices(comp_options, weights = t_bias, k=1)
+    comp_response = comp_response[0]
+    return comp_response
+
+
+
+
+#%% Built-in tests    
+if __name__ == '__main__':
+    #Test the bias weighting function raises an error with wrong input
     try:
         input_bias_weighting('d')
     except ValueError:
         print("input_bias_weighting function raises error successfully")
+        
+    #test strategy_b
+    b_list = []
+    for i in range(1, 100):
+        test_strategy_b = strategy_b([1, 0]) 
+        b_list.append(test_strategy_b)
+    
+    if 't' in b_list:
+        print("strategy_b() is not working")
 
     

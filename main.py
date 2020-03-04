@@ -29,8 +29,12 @@ print("Dear experimenter, Welcome to the matching pennies experiment. Before han
 #Let experimenter define computer strategy
 comp_str = strategy_functions.input_comp_str()
 
+#If g is chosen, assign a strategy randomly
+if comp_str == 'g':
+    strategies_list = ['a', 'b', 'c', 'd', 'e', 'f']
+    comp_str = random.choice(strategies_list)
+    print("Strategy {} was selected".format(comp_str))
 
-#if comp_str = 'b':
     
 
 #%% Window
@@ -79,7 +83,6 @@ ht = visual.TextStim(win, text = "Computer: H\nYou: T\n\nYou lose one point\n\nP
 th = visual.TextStim(win, text = "Computer: T\nYou: H\n\nYou lose one point\n\nPress the space bar to continue", color = 'red')
 
 
-
 #%% Keyboard
 
 key_meanings = {'h': 'Heads', 't': 'Tails', 'q': 'Quit'}
@@ -99,7 +102,11 @@ event.waitKeys(keyList = 'space')
 #%% Rounds
 
 game_round = 1
+comp_points = 0
+subj_points = 0
 
+prev_comp_response = 0  #For round 1 in comp strategy D
+prev_response = 0       #For round 1 in comp strategy E
 
 while True:
     #Present round number
@@ -110,27 +117,52 @@ while True:
     core.wait(1.5)
     
     #Generate computer's response
-    comp_options = ['h', 't'] #probably have to delete this later as it is in strategy_functions
     
     #A Computer responds with equal probability
     if comp_str == 'a':
         comp_response = strategy_functions.strategy_a()
-    
+   
     #B Computer is biased towards Heads
-    h_bias = [7, 3]
-    if comp_str == 'b':
-        comp_response = random.choices(comp_options, weights = h_bias, k=1)
-        comp_response = comp_response[0]
+    if comp_str[0] == 'b':
+        bias = comp_str[1]
+        comp_response = strategy_functions.strategy_b(bias)
         
     #C Computer is biased towards Tails
-
-        
+    if comp_str[0] == 'c':
+        bias = comp_str[1]
+        comp_response = strategy_functions.strategy_c(bias)
     
+    #D Computer switches from own previous decision
+    if comp_str[0] == 'd':
+        if prev_comp_response == 0:
+            comp_response = strategy_functions.strategy_a()
+        elif comp_response == 'h':
+            comp_response = 't'
+        elif comp_response == 't':
+            comp_response = 'h'
+    
+    #E Computer chooses opposite of subject's previous decision
+    if comp_str[0] == 'e':
+        if prev_response == 0:
+            comp_response = strategy_functions.strategy_a()
+        elif prev_response == 'h':
+            comp_response = 't'
+        elif prev_response == 't':
+            comp_response = 'h'
+    
+    #F Computer chooses subject's previous decision
+    if comp_str[0] == 'f':
+        if prev_response == 0:
+            comp_response = strategy_functions.strategy_a()
+        elif prev_response == 'h':
+            comp_response = 'h'
+        elif prev_response == 't':
+            comp_response = 't'
+        
     #Present choice and record response
     choice.draw()
     win.flip()
     key_press = event.waitKeys(keyList = allowed_keys)
-    
     #Extract response
     response = key_press[0]
     
@@ -140,23 +172,49 @@ while True:
     elif comp_response == 'h' and response == 'h':
         hh.draw()
         win.flip()
+        subj_points = subj_points + 1
     elif comp_response == 't' and response == 'h':
         th.draw()
         win.flip()
+        comp_points = comp_points + 1
     elif comp_response == 'h' and response == 't':
         ht.draw()
         win.flip()
+        comp_points = comp_points + 1
     elif comp_response == 't' and response == 't':
         tt.draw()
         win.flip()
-        
+        subj_points = subj_points + 1
+    
+     
     game_round = game_round + 1
+    prev_comp_response = comp_response  
+    prev_response = response
+    
     continue_or_quit = event.waitKeys(keyList = ['space', 'q'])
     continue_or_quit = continue_or_quit[0]
     
     if continue_or_quit == 'q':
         break
-    
+
+#%% Points stim
+        
+#Variables
+txt_comp_points = str(comp_points)
+txt_subj_points = str(subj_points)
+txt_points = """
+The final score was...
+Computer: {}
+You: {}
+
+Thank you for participating!""".format(txt_comp_points, txt_subj_points)
+
+points = visual.TextStim(win, text = txt_points)
+
+#points window
+points.draw()
+win.flip()
+core.wait(4)
     
 win.close()
 
