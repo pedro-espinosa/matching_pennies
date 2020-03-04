@@ -70,13 +70,19 @@ Heads or Tails?
 
 (Q to quit)
 """
-
-
-
+"""
+hh_text = "Computer: H\nYou: H\n\nYou get one point!\n\nScore\nComp {} - {} You\n\nPress the space bar to continue".format('0', '0'), color = 'green')
+tt_text = "Computer: T\nYou: T\n\nYou get one point!\n\nScore\nComp {} - {} You\n\nPress the space bar to continue", color = 'green')
+ht_text = "Computer: H\nYou: T\n\nYou lose one point\n\nScore\nComp {} - {} You\n\nPress the space bar to continue", color = 'red')
+th_text = "Computer: T\nYou: H\n\nYou lose one point\n\nScore\nComp {} - {} You\n\nPress the space bar to continue", color = 'red')
+"""
+    
 #stimuli
 welcome = visual.TextStim(win, text = welcome_text, height = 0.06)
 instructions = visual.TextStim(win, text = instructions_text,)
 choice = visual.TextStim(win, text = choice_text)
+
+#Delete the following when they have been repurposed as functions in the stimuli module
 hh = visual.TextStim(win, text = "Computer: H\nYou: H\n\nYou get one point!\n\nPress the space bar to continue", color = 'green',)
 tt = visual.TextStim(win, text = "Computer: T\nYou: T\n\nYou get one point!\n\nPress the space bar to continue", color = 'green')
 ht = visual.TextStim(win, text = "Computer: H\nYou: T\n\nYou lose one point\n\nPress the space bar to continue", color = 'red')
@@ -214,7 +220,7 @@ points = visual.TextStim(win, text = txt_points)
 #points window
 points.draw()
 win.flip()
-core.wait(4)
+core.wait(5)
     
 win.close()
 
