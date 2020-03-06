@@ -9,6 +9,8 @@ import os
 #import hardware_mod  #Do I really need this? Read up more on psychopy and monitors
 import random
 import strategy_functions
+import stimuli
+
 
 #%% Hardware specifications
 """
@@ -70,19 +72,15 @@ Heads or Tails?
 
 (Q to quit)
 """
-"""
-hh_text = "Computer: H\nYou: H\n\nYou get one point!\n\nScore\nComp {} - {} You\n\nPress the space bar to continue".format('0', '0'), color = 'green')
-tt_text = "Computer: T\nYou: T\n\nYou get one point!\n\nScore\nComp {} - {} You\n\nPress the space bar to continue", color = 'green')
-ht_text = "Computer: H\nYou: T\n\nYou lose one point\n\nScore\nComp {} - {} You\n\nPress the space bar to continue", color = 'red')
-th_text = "Computer: T\nYou: H\n\nYou lose one point\n\nScore\nComp {} - {} You\n\nPress the space bar to continue", color = 'red')
-"""
     
 #stimuli
 welcome = visual.TextStim(win, text = welcome_text, height = 0.06)
 instructions = visual.TextStim(win, text = instructions_text,)
 choice = visual.TextStim(win, text = choice_text)
 
+
 #Delete the following when they have been repurposed as functions in the stimuli module
+
 hh = visual.TextStim(win, text = "Computer: H\nYou: H\n\nYou get one point!\n\nPress the space bar to continue", color = 'green',)
 tt = visual.TextStim(win, text = "Computer: T\nYou: T\n\nYou get one point!\n\nPress the space bar to continue", color = 'green')
 ht = visual.TextStim(win, text = "Computer: H\nYou: T\n\nYou lose one point\n\nPress the space bar to continue", color = 'red')
@@ -122,7 +120,7 @@ while True:
     win.flip()
     core.wait(1.5)
     
-    #Generate computer's response
+    #%% Generate computer's response
     
     #A Computer responds with equal probability
     if comp_str == 'a':
@@ -165,32 +163,86 @@ while True:
         elif prev_response == 't':
             comp_response = 't'
         
-    #Present choice and record response
+    #%% Present choice and record response
     choice.draw()
     win.flip()
     key_press = event.waitKeys(keyList = allowed_keys)
     #Extract response
     response = key_press[0]
     
-    #Branch outcomes for the response
+    #%% Variables and functions for the outcome
+    
+    outcomes = ['hh', 'th', 'ht', 'tt']
+    
+    
+    def outcome_stim(outcome, comp_score, subj_score): #I wanted to have this function in the stimuli module but apparently doing that makes it have cyclical imports with the window and the function.
+        """
+        Generates the TextStim for each of the four possible outcomes with an updated score.
+        
+        Parameters
+        ----------
+        outcome : hh, tt, ht, th
+            One of the four possible outcomes in a round.
+        comp_score : INT
+            The variable containing the computer's score (comp_points)'
+        subj_score : INT
+            The variable containing the subject's score (subj_points)'
+        
+        Raises
+        ------
+        an
+            DESCRIPTION.
+        
+        Returns
+        -------
+        stimulus : psychopy.visual.text.TextStim
+            The visual stimulus ready to be drawn.
+        
+        """
+        if outcome == 'hh':
+            text = stimuli.hh_text
+            color = 'green'
+        elif outcome == 'tt':
+            text = stimuli.tt_text
+            color = 'green'
+        elif outcome == 'ht':
+            text = stimuli.ht_text
+            color = 'red'
+        elif outcome == 'th':
+            text = stimuli.th_text
+            color = 'red'
+        #check: else: raise an error???????????????
+        
+        text = text.format(comp_score, subj_score)
+        
+        stimulus = visual.TextStim(win, text = text, color = color)
+        
+        return stimulus
+
+#%% Branch outcomes for the response
     if response == 'q':
         break
     elif comp_response == 'h' and response == 'h':
+        subj_points = subj_points + 1
+        hh = outcome_stim(outcomes[0], comp_points, subj_points)
         hh.draw()
         win.flip()
-        subj_points = subj_points + 1
     elif comp_response == 't' and response == 'h':
+        comp_points = comp_points + 1
+        th = outcome_stim(outcomes[1], comp_points, subj_points)
         th.draw()
         win.flip()
-        comp_points = comp_points + 1
     elif comp_response == 'h' and response == 't':
+        comp_points = comp_points + 1
+        ht = outcome_stim(outcomes[2], comp_points, subj_points)
         ht.draw()
         win.flip()
-        comp_points = comp_points + 1
     elif comp_response == 't' and response == 't':
+        subj_points = subj_points + 1
+        tt = outcome_stim(outcomes[3], comp_points, subj_points)
         tt.draw()
         win.flip()
-        subj_points = subj_points + 1
+        
     
      
     game_round = game_round + 1
@@ -203,7 +255,7 @@ while True:
     if continue_or_quit == 'q':
         break
 
-#%% Points stim
+#%% Final score screen
         
 #Variables
 txt_comp_points = str(comp_points)
