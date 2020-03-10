@@ -105,12 +105,17 @@ win.flip()
 event.waitKeys(keyList = 'space')
 #%% Rounds
 
+#%% Necessary variables
 game_round = 1
 comp_points = 0
 subj_points = 0
 
 prev_comp_response = 0  #For round 1 in comp strategy D
 prev_response = 0       #For round 1 in comp strategy E
+
+#Variables which record switches from previous decisions (own and computer's)
+switch_from_own = 0
+switch_from_comp = 0
 
 while True:
     #Present round number
@@ -219,7 +224,9 @@ while True:
         
         return stimulus
 
-#%% Branch outcomes for the response
+#%% Branch outcomes for the response and record scores and switches
+    
+    #Branch outcomes depending on responses
     if response == 'q':
         break
     elif comp_response == 'h' and response == 'h':
@@ -243,17 +250,25 @@ while True:
         tt.draw()
         win.flip()
         
-    
-     
+    #For all rounds after the first, record subject's switches from own previous response and computer's response
+    if game_round > 1:
+        if response != prev_response:
+            switch_from_own = switch_from_own + 1
+        if response != prev_comp_response:
+            switch_from_comp = switch_from_comp + 1
+        
+    #reassign variables for next round
     game_round = game_round + 1
     prev_comp_response = comp_response  
     prev_response = response
     
+    #Allow quiting even though not explicitly displayed to avoid cramming the screen
     continue_or_quit = event.waitKeys(keyList = ['space', 'q'])
     continue_or_quit = continue_or_quit[0]
     
     if continue_or_quit == 'q':
         break
+#While loop ends.
 
 #%% Final score screen
         
@@ -276,7 +291,17 @@ core.wait(5)
     
 win.close()
 
+#%% Printout results
 
+res_print = """Results of the trial
+
+Opposite from own previous decision: {}
+Opposite from computer's previous decision: {}
+
+Final score:
+    Comp  {} - {}    Subj"""
+
+print(res_print.format(switch_from_own, switch_from_comp, comp_points, subj_points))
 
 
 

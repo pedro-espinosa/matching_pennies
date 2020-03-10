@@ -154,7 +154,7 @@ def strategy_c(t_bias):
     comp_response = comp_response[0]
     return comp_response
 
-
+# Strategies D, E, F, and option G were kept in main for simplicity. The former under "#%% Generate computer's response" and the latter under "#If g is chosen"   
 
 
 #%% Built-in tests    
