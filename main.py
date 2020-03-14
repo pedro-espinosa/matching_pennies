@@ -47,6 +47,8 @@ print("The window has been created")
 
 #%% Text stimuli
 
+#Delete when they have been transferred to stimuli module
+
 #text
 welcome_text = """
 Welcome! In this experiment you will play a game of 'Matching Pennies' against a computer.
@@ -79,12 +81,36 @@ instructions = visual.TextStim(win, text = instructions_text,)
 choice = visual.TextStim(win, text = choice_text)
 
 
-#Delete the following when they have been repurposed as functions in the stimuli module
+#%% Visual stimuli of the outcomes (coin images and score text function)
 
-hh = visual.TextStim(win, text = "Computer: H\nYou: H\n\nYou get one point!\n\nPress the space bar to continue", color = 'green',)
-tt = visual.TextStim(win, text = "Computer: T\nYou: T\n\nYou get one point!\n\nPress the space bar to continue", color = 'green')
-ht = visual.TextStim(win, text = "Computer: H\nYou: T\n\nYou lose one point\n\nPress the space bar to continue", color = 'red')
-th = visual.TextStim(win, text = "Computer: T\nYou: H\n\nYou lose one point\n\nPress the space bar to continue", color = 'red')
+hh_image = visual.ImageStim(win, image = stimuli.f_hh, pos =(0, .25))
+tt_image = visual.ImageStim(win, image = stimuli.f_tt, pos =(0, .25))
+ht_image = visual.ImageStim(win, image = stimuli.f_ht, pos =(0, .25))
+th_image = visual.ImageStim(win, image = stimuli.f_th, pos =(0, .25))
+
+
+def score_fn(subj_score, comp_score):
+    """
+    Generates the TextStim with the updated score values
+
+    Parameters
+    ----------
+    subj_score : INT
+        The subjects score at the moment
+    comp_score : INT
+        The computer's score at the moment'
+
+    Returns
+    -------
+    score_stim : psychopy.visual.text.TextStim
+        The visual stimulus ready to be drawn.
+
+    """
+    score = stimuli.score_text.format(subj_score, comp_score)
+    score_stim = visual.TextStim(win, text = score, pos = (.9, -.8))
+    return score_stim
+
+
 
 
 #%% Keyboard
@@ -105,7 +131,7 @@ win.flip()
 event.waitKeys(keyList = 'space')
 #%% Rounds
 
-#%% Necessary variables
+#%% Necessary variables before loop and functions
 game_round = 1
 comp_points = 0
 subj_points = 0
@@ -173,81 +199,37 @@ while True:
     win.flip()
     key_press = event.waitKeys(keyList = allowed_keys)
     #Extract response
-    response = key_press[0]
+    response = key_press[0]   
     
-    #%% Variables and functions for the outcome
-    
-    outcomes = ['hh', 'th', 'ht', 'tt']
-    
-    
-    def outcome_stim(outcome, comp_score, subj_score): #I wanted to have this function in the stimuli module but apparently doing that makes it have cyclical imports with the window and the function.
-        """
-        Generates the TextStim for each of the four possible outcomes with an updated score.
-        
-        Parameters
-        ----------
-        outcome : hh, tt, ht, th
-            One of the four possible outcomes in a round.
-        comp_score : INT
-            The variable containing the computer's score (comp_points)'
-        subj_score : INT
-            The variable containing the subject's score (subj_points)'
-        
-        Raises
-        ------
-        an
-            DESCRIPTION.
-        
-        Returns
-        -------
-        stimulus : psychopy.visual.text.TextStim
-            The visual stimulus ready to be drawn.
-        
-        """
-        if outcome == 'hh':
-            text = stimuli.hh_text
-            color = 'green'
-        elif outcome == 'tt':
-            text = stimuli.tt_text
-            color = 'green'
-        elif outcome == 'ht':
-            text = stimuli.ht_text
-            color = 'red'
-        elif outcome == 'th':
-            text = stimuli.th_text
-            color = 'red'
-        #check: else: raise an error???????????????
-        
-        text = text.format(comp_score, subj_score)
-        
-        stimulus = visual.TextStim(win, text = text, color = color)
-        
-        return stimulus
 
 #%% Branch outcomes for the response and record scores and switches
     
     #Branch outcomes depending on responses
     if response == 'q':
         break
-    elif comp_response == 'h' and response == 'h':
+    elif response == 'h' and comp_response == 'h':
         subj_points = subj_points + 1
-        hh = outcome_stim(outcomes[0], comp_points, subj_points)
-        hh.draw()
+        score = score_fn(subj_points, comp_points)
+        hh_image.draw()
+        score.draw()
         win.flip()
-    elif comp_response == 't' and response == 'h':
+    elif response == 'h' and comp_response == 't' :
         comp_points = comp_points + 1
-        th = outcome_stim(outcomes[1], comp_points, subj_points)
-        th.draw()
+        score = score_fn(subj_points, comp_points)
+        ht_image.draw()
+        score.draw()
         win.flip()
-    elif comp_response == 'h' and response == 't':
+    elif response == 't' and comp_response == 'h':
         comp_points = comp_points + 1
-        ht = outcome_stim(outcomes[2], comp_points, subj_points)
-        ht.draw()
+        score = score_fn(subj_points, comp_points)
+        th_image.draw()
+        score.draw()
         win.flip()
-    elif comp_response == 't' and response == 't':
+    elif response == 't' and comp_response == 't' :
         subj_points = subj_points + 1
-        tt = outcome_stim(outcomes[3], comp_points, subj_points)
-        tt.draw()
+        score = score_fn(subj_points, comp_points)
+        tt_image.draw()
+        score.draw()
         win.flip()
         
     #For all rounds after the first, record subject's switches from own previous response and computer's response

@@ -3,17 +3,15 @@
 """
 Module containing functions for generating visual stimuli
 """
+import os
 
 #from main import win         #raises ImportError: cannot import name 'win'
 #from psychopy import visual
 
 
-#Variables necessary for outcome_stim()
-hh_text = "Computer: H\nYou: H\n\nYou get one point!\n\nScore\nComp {} - {} You\n\nPress the space bar to continue"
-tt_text = "Computer: T\nYou: T\n\nYou get one point!\n\nScore\nComp {} - {} You\n\nPress the space bar to continue"
-ht_text = "Computer: H\nYou: T\n\nYou lose one point\n\nScore\nComp {} - {} You\n\nPress the space bar to continue"
-th_text = "Computer: T\nYou: H\n\nYou lose one point\n\nScore\nComp {} - {} You\n\nPress the space bar to continue"
+#Score text
 
+score_text = "{} - {}\n\n\n\n(spacebar to continue)"
 
 
 
@@ -64,8 +62,10 @@ th_text = "Computer: T\nYou: H\n\nYou lose one point\n\nScore\nComp {} - {} You\
  #silenced   """
 
 
-
-
-
-
+#filepaths for outcome images
+     
+f_hh = os.path.join('images', 'hh.jpg')
+f_tt = os.path.join('images', 'tt.jpg')
+f_ht = os.path.join('images', 'ht.jpg')
+f_th = os.path.join('images', 'th.jpg')
 
