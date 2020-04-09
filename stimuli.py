@@ -5,64 +5,38 @@ Module containing functions for generating visual stimuli
 """
 import os
 
-#from main import win         #raises ImportError: cannot import name 'win'
-#from psychopy import visual
+#%% Welcome, instructions and first choice
+welcome_text = """
+Welcome! In this experiment you will play a game of 'Matching Pennies' against a computer.
+Each round you will choose which side of the coin you will reveal and the computer will do so as well.
+If both coins have the same side up, you get a point. If the coins have different
+sides up the computer gets a point.
 
-
-#Score text
-
-score_text = "{} - {}\n\n\n\n(spacebar to continue)"
-
-
-
-#def outcome_stim(outcome, comp_score, subj_score):
+Press space bar to continue.
 """
-    Generates the TextStim for each of the four possible outcomes with an updated score.
-    
-    Parameters
-    ----------
-    outcome : hh, tt, ht, th
-        One of the four possible outcomes in a round.
-    comp_score : INT
-        The variable containing the computer's score (comp_points)'
-    subj_score : INT
-        The variable containing the subject's score (subj_points)'
-    
-    Raises
-    ------
-    an
-        DESCRIPTION.
-    
-    Returns
-    -------
-    stimulus : psychopy.visual.text.TextStim
-        The visual stimulus ready to be drawn.
-    
-    """
-"""#silenced    
-    if outcome == 'hh':
-        text = hh_text
-        color = 'green'
-    elif outcome == 'tt':
-        text = tt_text
-        color = 'green'
-    elif outcome == 'ht':
-        text = ht_text
-        color = 'red'
-    elif outcome == 'th':
-        text = th_text
-        color = 'red'
-    #else: raise an error???????????????
-    
-    text = text.format(comp_score, subj_score)
-    
-    stimulus = visual.TextStim(win, text = text, color = color)
-    
-    return stimulus
- #silenced   """
+
+instructions_text = """
+Instructions:
+Press 'H' to choose Heads
+Press 'T' to choose Tails
+Or Press 'Q' at any time to quit
+
+Now, press the space bar to start.
+"""
+
+choice_text = """
+Heads or Tails?
+
+(Q to quit)
+"""
 
 
-#filepaths for outcome images
+#%% Score text
+
+score_text = "              {} - {}\n\n spacebar to continue"
+
+
+#%% filepaths for outcome images
      
 f_hh = os.path.join('images', 'hh.jpg')
 f_tt = os.path.join('images', 'tt.jpg')

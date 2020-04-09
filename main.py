@@ -23,7 +23,9 @@ monitors.Monitor.setSizePix(mon, monitor_dims)
 """
 #%% Experimenter input
 
-print("Dear experimenter, Welcome to the matching pennies experiment. Before handing the computer over to the participant please fill in the following specifications.")
+print("""\nDear experimenter, Welcome to the matching pennies experiment.
+      Before handing the computer over to the participant please fill
+      in the following specifications.""")
 
 
 #subject_id = input('Subject ID: ')
@@ -49,36 +51,12 @@ print("The window has been created")
 
 #Delete when they have been transferred to stimuli module
 
-#text
-welcome_text = """
-Welcome! In this experiment you will play a game of 'Matching Pennies' against a computer.
-In this simple yet exciting game you will play a series of rounds. For each round you will choose
-either heads or tails and the computer will do so as well. After you make a decision both coins 
-will be compared. If both coins have the same side up, you get a point. If the coins have different
-sides up the computer gets a point.
 
-Press space bar to continue.
-"""
-
-instructions_text = """
-Instructions:
-Press 'H' to choose Heads
-Press 'T' to choose Tails
-Or Press 'Q' at any time to quit
-
-Now, press the space bar to start.
-"""
-
-choice_text = """
-Heads or Tails?
-
-(Q to quit)
-"""
     
 #stimuli
-welcome = visual.TextStim(win, text = welcome_text, height = 0.06)
-instructions = visual.TextStim(win, text = instructions_text,)
-choice = visual.TextStim(win, text = choice_text)
+welcome = visual.TextStim(win, text = stimuli.welcome_text, height = 0.06, alignHoriz ='center', )
+instructions = visual.TextStim(win, text = stimuli.instructions_text,)
+choice = visual.TextStim(win, text = stimuli.choice_text)
 
 
 #%% Visual stimuli of the outcomes (coin images and score text function)
@@ -107,7 +85,7 @@ def score_fn(subj_score, comp_score):
 
     """
     score = stimuli.score_text.format(subj_score, comp_score)
-    score_stim = visual.TextStim(win, text = score, pos = (.9, -.8))
+    score_stim = visual.TextStim(win, text = score, pos = (.53, -.7))
     return score_stim
 
 
@@ -275,15 +253,18 @@ win.close()
 
 #%% Printout results
 
-res_print = """Results of the trial
+res_print = """\nResults of the trial
 
+Subject's summary:
+Rounds played: {}
 Opposite from own previous decision: {}
 Opposite from computer's previous decision: {}
 
 Final score:
     Comp  {} - {}    Subj"""
 
-print(res_print.format(switch_from_own, switch_from_comp, comp_points, subj_points))
+rounds_played = comp_points + subj_points
+print(res_print.format(rounds_played, switch_from_own, switch_from_comp, comp_points, subj_points))
 
 
 
