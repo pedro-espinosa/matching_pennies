@@ -54,7 +54,7 @@ def input_bias_weighting(bias_strat):
         except:
             bias_weight = input("Please enter the value in digits (characters are not allowed): ")
     while True:
-        if bias_weight <= 1:
+        if 0 <= bias_weight <= 1:
             break
         else:
             bias_weight = input("Wrong value. Please enter a number between 0 and 1: ")

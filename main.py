@@ -5,7 +5,6 @@ Script for the matching_pennies programme.
 """
 
 from psychopy import visual, core, event, data, monitors
-import os
 #import hardware_mod  #Do I really need this? Read up more on psychopy and monitors
 import random
 import strategy_functions
@@ -21,7 +20,7 @@ screen_height = monitor_dims[1]
 mon = monitors.Monitor('my monitor')
 monitors.Monitor.setSizePix(mon, monitor_dims)
 """
-#%% Experimenter input
+#%% Experimenter input to define computer's strategy
 
 print("""\nDear experimenter, Welcome to the matching pennies experiment.
       Before handing the computer over to the participant please fill
@@ -48,12 +47,7 @@ win = visual.Window(size = (1200, 850), color = 'black', monitor = 'my monitor')
 print("The window has been created")
 
 #%% Text stimuli
-
-#Delete when they have been transferred to stimuli module
-
-
     
-#stimuli
 welcome = visual.TextStim(win, text = stimuli.welcome_text, height = 0.06, alignHoriz ='center', )
 instructions = visual.TextStim(win, text = stimuli.instructions_text,)
 choice = visual.TextStim(win, text = stimuli.choice_text)
@@ -114,10 +108,10 @@ game_round = 1
 comp_points = 0
 subj_points = 0
 
-prev_comp_response = 0  #For round 1 in comp strategy D
-prev_response = 0       #For round 1 in comp strategy E
+prev_comp_response = 0  #Starts as 0 for round 1 in comp strategy D
+prev_response = 0       #Starts as 0 for round 1 in comp strategy E
 
-#Variables which record switches from previous decisions (own and computer's)
+#Variables to record subject's switches from previous decisions (own and computer's)
 switch_from_own = 0
 switch_from_comp = 0
 
@@ -224,9 +218,8 @@ while True:
     
     #Allow quiting even though not explicitly displayed to avoid cramming the screen
     continue_or_quit = event.waitKeys(keyList = ['space', 'q'])
-    continue_or_quit = continue_or_quit[0]
     
-    if continue_or_quit == 'q':
+    if continue_or_quit[0] == 'q':
         break
 #While loop ends.
 
