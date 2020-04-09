@@ -32,11 +32,7 @@ print("""\nDear experimenter, Welcome to the matching pennies experiment.
 #Let experimenter define computer strategy
 comp_str = strategy_functions.input_comp_str()
 
-#If g is chosen, assign a strategy randomly
-if comp_str == 'g':
-    strategies_list = ['a', 'b', 'c', 'd', 'e', 'f']
-    comp_str = random.choice(strategies_list)
-    print("Strategy {} was selected".format(comp_str))
+
 
     
 

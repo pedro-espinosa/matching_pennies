@@ -109,6 +109,11 @@ def input_comp_str():
             strategy = input("Please enter a valid letter: ")
             strategy = strategy.lower().strip()
 
+    #If g is chosen, assign a strategy randomly
+    if strategy == 'g':
+        strategy = random.choice(allowed_inputs[0:5])
+        print("\nStrategy {} was selected.".format(strategy))
+
     #Strategy b. Calls input_bias_weighting to collect input from experimenter
     if strategy == 'b':
         h_bias = input_bias_weighting(strategy)
