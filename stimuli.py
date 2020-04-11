@@ -8,7 +8,7 @@ import os
 #%% Welcome, instructions and first choice
 welcome_text = """
 Welcome! In this experiment you will play a game of 'Matching Pennies' against a computer.
-Each round you will choose which side of the coin you will reveal and the computer will do so as well.
+Each player has a coin. Every round, the players decide which side of their coin to show.
 If both coins have the same side up, you get a point. If the coins have different
 sides up the computer gets a point.
 

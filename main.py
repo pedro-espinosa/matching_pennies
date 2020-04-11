@@ -176,25 +176,25 @@ while True:
     if response == 'q':
         break
     elif response == 'h' and comp_response == 'h':
-        subj_points = subj_points + 1
+        subj_points += 1
         score = score_fn(subj_points, comp_points)
         hh_image.draw()
         score.draw()
         win.flip()
     elif response == 'h' and comp_response == 't' :
-        comp_points = comp_points + 1
+        comp_points += 1
         score = score_fn(subj_points, comp_points)
         ht_image.draw()
         score.draw()
         win.flip()
     elif response == 't' and comp_response == 'h':
-        comp_points = comp_points + 1
+        comp_points +=1
         score = score_fn(subj_points, comp_points)
         th_image.draw()
         score.draw()
         win.flip()
     elif response == 't' and comp_response == 't' :
-        subj_points = subj_points + 1
+        subj_points += 1
         score = score_fn(subj_points, comp_points)
         tt_image.draw()
         score.draw()
@@ -203,12 +203,12 @@ while True:
     #For all rounds after the first, record subject's switches from own previous response and computer's response
     if game_round > 1:
         if response != prev_response:
-            switch_from_own = switch_from_own + 1
+            switch_from_own += 1
         if response != prev_comp_response:
-            switch_from_comp = switch_from_comp + 1
+            switch_from_comp += 1
         
     #reassign variables for next round
-    game_round = game_round + 1
+    game_round += 1
     prev_comp_response = comp_response  
     prev_response = response
     
