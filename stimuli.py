@@ -33,7 +33,7 @@ Heads or Tails?
 
 #%% Score text
 
-score_text = "              {} - {}\n\n spacebar to continue"
+score_text = "              {} - {}\n spacebar to continue"
 
 
 #%% filepaths for outcome images

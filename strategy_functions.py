@@ -6,7 +6,7 @@ A module containing functions for:
     - The computer's strategy as specified by the experimenter
 """
 import random
-
+import mock
 
 
 #Common framework for the biased strategies (b and c) in a function that is used in the main function of defining computer strategy (input_comp_str())
@@ -111,7 +111,7 @@ def input_comp_str():
 
     #If g is chosen, assign a strategy randomly
     if strategy == 'g':
-        strategy = random.choice(allowed_inputs[0:5])
+        strategy = random.choice(allowed_inputs[:-1])
         print("\nStrategy {} was selected.".format(strategy))
 
     #Strategy b. Calls input_bias_weighting to collect input from experimenter
@@ -155,28 +155,72 @@ def strategy_b(h_bias):
 
 # C
 def strategy_c(t_bias):
-    comp_response = random.choices(comp_options, weights = t_bias, k=1)
+    comp_response = random.choices(comp_options[::-1], weights = t_bias, k=1) 
     comp_response = comp_response[0]
     return comp_response
+    #comp_options inverted so weighting applies to 't'. 
+    #Could have been stored in reverse order in input_comp_str() but i preferred to
+    #leave the first value as the bias towards what it says. So here comp_options are inverted.
 
 # Strategies D, E, F, and option G were kept in main for simplicity. The former under "#%% Generate computer's response" and the latter under "#If g is chosen"   
 
 
 #%% Built-in tests    
 if __name__ == '__main__':
+   
+    #Test input_bias_weighting(b). It uses the mock module to mock the user typing in the input.
+    def test_input_bias_weighting(strat):
+       with mock.patch('builtins.input', return_value = 0.876):
+           assert input_bias_weighting(strat) == [0.876, 1 - 0.876]
+    
+    try:
+        test_input_bias_weighting('b')
+    except AssertionError:
+        print("test_input_bias_weighting('b') is not functioning adequately")
+    
+              
+    try:
+        test_input_bias_weighting('c')
+    except AssertionError:
+        print("test_input_bias_weighting('c') is not functioning adequately")
+                                            
+    
+    
     #Test the bias weighting function raises an error with wrong input
     try:
         input_bias_weighting('d')
     except ValueError:
-        print("input_bias_weighting function raises error successfully")
+        print("input_bias_weighting function raises error on wrong letter successfully")
         
-    #test strategy_b
+   
+    
+    #test strategy_a()
+    a_list = []
+    for i in range(1, 100):
+        test_strategy_a = strategy_a()
+        a_list.append(test_strategy_a)
+    h_count = a_list.count('h')
+    if 55 < h_count < 45:
+        print('strategy_a() is likely to be malfunctioning')
+        
+    
+    #test strategy_b()
     b_list = []
     for i in range(1, 100):
         test_strategy_b = strategy_b([1, 0]) 
         b_list.append(test_strategy_b)
+    for i in b_list:
+        if i == 't':
+            print("strategy_b() is not generating computer decisions according to bias")
     
-    if 't' in b_list:
-        print("strategy_b() is not working")
+    #test strategy_c()
+    c_list = []
+    for i in range(1, 100):
+        test_strategy_c = strategy_c([1, 0]) 
+        c_list.append(test_strategy_c)
+    for i in c_list:
+        if i == 'h':
+            print('strategy_c() is not generating computer decisions according to bias')
+    
 
     

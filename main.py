@@ -51,12 +51,13 @@ choice = visual.TextStim(win, text = stimuli.choice_text)
 
 #%% Visual stimuli of the outcomes (coin images and score text function)
 
+# The filepaths for the images are in stimuli.py > #%% filepaths for outcome images
 hh_image = visual.ImageStim(win, image = stimuli.f_hh, pos =(0, .25))
 tt_image = visual.ImageStim(win, image = stimuli.f_tt, pos =(0, .25))
 ht_image = visual.ImageStim(win, image = stimuli.f_ht, pos =(0, .25))
 th_image = visual.ImageStim(win, image = stimuli.f_th, pos =(0, .25))
 
-
+#I left this function in main so that it can interact directly with win
 def score_fn(subj_score, comp_score):
     """
     Generates the TextStim with the updated score values
@@ -72,10 +73,15 @@ def score_fn(subj_score, comp_score):
     -------
     score_stim : psychopy.visual.text.TextStim
         The visual stimulus ready to be drawn.
+        
+    e.g.
+    
+            5 - 4
+      Spacebar to continue
 
     """
     score = stimuli.score_text.format(subj_score, comp_score)
-    score_stim = visual.TextStim(win, text = score, pos = (.53, -.7))
+    score_stim = visual.TextStim(win, text = score, pos = (.53, -.6))
     return score_stim
 
 
@@ -122,7 +128,7 @@ while True:
     #%% Generate computer's response
     
     #A Computer responds with equal probability
-    if comp_str == 'a':
+    if comp_str[0] == 'a':
         comp_response = strategy_functions.strategy_a()
    
     #B Computer is biased towards Heads

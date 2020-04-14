@@ -20,8 +20,10 @@ Additionally, the programme automatically prints some results at the end of the 
 Finally, the programme stores the subject's ID and their results in a csv file.
 
 
+## Repository structure
 
-#### References
+
+### References
 
 Peirce, J. W., Gray, J. R., Simpson, S., MacAskill, M. R., Höchenberger, R., Sogo, H., Kastman, E., Lindeløv,
 J. (2019). PsychoPy2: experiments in behavior made easy. Behavior Research Methods. 10.3758/s13428-018-
