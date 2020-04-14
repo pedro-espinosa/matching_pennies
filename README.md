@@ -4,13 +4,13 @@
 This is a programme that enables participants to play a game of matching pennies against the computer. In this game, each player has a coin; on each round, each player decides which side of their coin to show. If both coins match, the participant gets a point (the 'even' player), if they don't match the computer gets a point (the 'odd' player).
 
 When the programme starts, the experimenter inputs the subject's ID and specifies the computer's strategy:
-  a. Random: Computer chooses face randomly with no bias.
-  b. Bias towards heads
-  c. Bias towards tails
-  d. Switch from own previous decision
-  e. Choose opposite of subject's previous decision
-  f. Choose subject's previous decision
-  g. Assign one of the previous 6 strategies randomly
+  A. Random: Computer chooses face randomly with no bias.
+  B. Bias towards heads
+  C. Bias towards tails
+  D. Switch from own previous decision
+  E. Choose opposite of subject's previous decision
+  F. Choose subject's previous decision
+  G. Assign one of the previous 6 strategies randomly
 
 Additionally, the programme automatically prints some results at the end of the game namely:
   - Final score
