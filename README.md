@@ -12,7 +12,7 @@ When the programme starts, the experimenter inputs the subject's ID and specifie
 - f. Choose subject's previous decision
 - g. Assign one of the previous 6 strategies randomly
 
-Additionally, the programme automatically prints some results at the end of the game namely:
+Additionally, the programme automatically prints some results at the end of the game, namely:
   - Final score
   - How often the subject switched their choice so that it was different from their choice in the previous round
   - How often the subject switched their choice so that it was different from the computer’s choice in the previous round.
@@ -21,8 +21,8 @@ Finally, the programme stores the subject's ID and their results in a csv file.
 
 
 
+#### References
 
-References
 Peirce, J. W., Gray, J. R., Simpson, S., MacAskill, M. R., Höchenberger, R., Sogo, H., Kastman, E., Lindeløv,
 J. (2019). PsychoPy2: experiments in behavior made easy. Behavior Research Methods. 10.3758/s13428-018-
 01193-y
