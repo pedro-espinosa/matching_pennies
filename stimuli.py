@@ -17,9 +17,10 @@ Press space bar to continue.
 
 instructions_text = """
 Instructions:
+
 Press 'H' to choose Heads
 Press 'T' to choose Tails
-Or Press 'Q' at any time to quit
+Press 'Q' at any time to quit
 
 Now, press the space bar to start.
 """
@@ -33,7 +34,11 @@ Heads or Tails?
 
 #%% Score text
 
-score_text = "              {} - {}\n spacebar to continue"
+score_text = "{} - {}\n spacebar to continue"
+
+#%% Final score screen
+
+#This stimulus is in main.py under '#%% Final score screen' (for simplicity)
 
 
 #%% filepaths for outcome images

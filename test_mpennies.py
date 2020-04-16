@@ -1,7 +1,7 @@
 
 import pytest
 import strategy_functions
-import main
+import mock
 
 #template
 """
@@ -11,6 +11,6 @@ def test_ :
     assert result ==
 """
 
-def test_input_bias_weighting():
-    with pytest.raises(ValueError):
-        strategy_functions.input_bias_weighting('d')
+def test_input_bias_weighting(strat):
+       with mock.patch('builtins.input', return_value = 0.876):
+           assert strategy_functions.input_bias_weighting(strat) == [0.876, 1 - 0.876]

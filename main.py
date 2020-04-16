@@ -57,7 +57,7 @@ tt_image = visual.ImageStim(win, image = stimuli.f_tt, pos =(0, .25))
 ht_image = visual.ImageStim(win, image = stimuli.f_ht, pos =(0, .25))
 th_image = visual.ImageStim(win, image = stimuli.f_th, pos =(0, .25))
 
-#I left this function in main so that it can interact directly with win
+#I left this function in main so that it can interact directly with win. It is still tested when running strategy_functions.py as __main__
 def score_fn(subj_score, comp_score):
     """
     Generates the TextStim with the updated score values
@@ -81,7 +81,8 @@ def score_fn(subj_score, comp_score):
 
     """
     score = stimuli.score_text.format(subj_score, comp_score)
-    score_stim = visual.TextStim(win, text = score, pos = (.53, -.6))
+    #To edit the score_text go to the stimuli.py module
+    score_stim = visual.TextStim(win, text = score, pos = (0, -.6))
     return score_stim
 
 
@@ -232,10 +233,10 @@ txt_comp_points = str(comp_points)
 txt_subj_points = str(subj_points)
 txt_points = """
 The final score was...
-Computer: {}
-You: {}
+You               Computer
+{}    -    {}   
 
-Thank you for participating!""".format(txt_comp_points, txt_subj_points)
+Thank you for participating!""".format(txt_subj_points, txt_comp_points)
 
 points = visual.TextStim(win, text = txt_points)
 
@@ -256,10 +257,10 @@ Opposite from own previous decision: {}
 Opposite from computer's previous decision: {}
 
 Final score:
-    Comp  {} - {}    Subj"""
+    Subj   {} - {}  Comp"""
 
 rounds_played = comp_points + subj_points
-print(res_print.format(rounds_played, switch_from_own, switch_from_comp, comp_points, subj_points))
+print(res_print.format(rounds_played, switch_from_own, switch_from_comp, subj_points, comp_points))
 
 
 
