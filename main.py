@@ -4,9 +4,7 @@
 Script for the matching_pennies programme.
 """
 
-from psychopy import visual, core, event, data, monitors
-#import hardware_mod  #Do I really need this? Read up more on psychopy and monitors
-import random
+from psychopy import visual, core, event
 import strategy_functions
 import stimuli
 
@@ -251,103 +249,12 @@ win.close()
 
 #%% Gather subject's data in an object and print out results on the console for quick overview
 
-#Create the class of objects called data that can store all data that is relevant in the experiment. This makes it easier for experimenters to add commands at the end of this script that extract their data to a file of their preference.
-class Data:
-    """    
-         A class to store the relevant data this experiment yields.
 
-    ...
+subject_data = strategy_functions.Data(subject_id, comp_str, switch_from_own, switch_from_comp, subj_points, comp_points)
+#The class Data can be found in the strategy_functions module
 
-    Attributes
-    ----------
-    subject_id : str
-        A string to identify the subject / participant
-    comps_strat : str
-        A string to identify the computer's strategy during the trial
-    opposite_own : int
-        An integer equal to the number of times the participant chose the opposite of their own previous choice
-    opposite_comp : int
-        An integer equal to the number of times the participant chose the opposite of the computer's previous choice
-    wins : int
-        An integer equal to the number of rounds the participant won
-    losses : int
-        An integer equal to the number of rounds the participant lost against the computer
-    rounds_played : int
-        An integer equal to the number of rounds played during the trial (calculated summing wins and losses)
-    
-
-    Methods
-    -------
-    resultsPrintout()
-        Prints a summary of the relevant results for the experimenter to see in the console when the trial is conlcuded.
-    """
-    def __init__(self, subject_id, comps_strat, opposite_own, opposite_comp, wins, losses):
-        """
-        Parameters
-        ----------
-        subject_id : str
-            A string to identify the subject / participant
-        comps_strat : str
-            A string to identify the computer's strategy during the trial
-        opposite_own : int
-            An integer equal to the number of times the participant chose the opposite of their own previous choice
-        opposite_comp : int
-            An integer equal to the number of times the participant chose the opposite of the computer's previous choice
-        wins : int
-            An integer equal to the number of rounds the participant won
-        losses : int
-            An integer equal to the number of rounds the participant lost against the computer
-        rounds_played : int
-            An integer equal to the number of rounds played during the trial (calculated summing wins and losses)
-        """
-        self.subject_id = subject_id
-        self.comps_strat = comps_strat
-        self.opposite_own = opposite_own
-        self.opposite_comp = opposite_comp
-        self.wins = wins
-        self.losses = losses
-        self.rounds_played = self.wins + self.losses
-        
-    def resultsPrintout(self):
-        """
-        Prints a summary of the relevant results for the experimenter to see in the console when the trial is conlcuded.
-
-        Returns
-        -------
-        Prints a string containing relevant data of the trial, namely: subject ID, rounds played, choosing opposite from previous choice, choosing opposite from computer's previous choice, and the final score'
-
-        """
-       
-        res_print = """\nResults of the trial
-
-        Summary:
-        Subject: {}
-        Rounds played: {}
-        Opposite from own previous decision: {}
-        Opposite from computer's previous decision: {}
-        
-        Final score:
-            Subj   {} - {}  Comp"""
-        
-        print(res_print.format(self.subject_id, self.rounds_played, self.opposite_own, self.opposite_comp, self.wins, self.losses))
-
-subject_data = Data(subject_id, comp_str, switch_from_own, switch_from_comp, subj_points, comp_points)
-
+#Print the results using the class's method 'resultsPrintout'
 subject_data.resultsPrintout()
-
-
-# res_print = """\nResults of the trial
-
-# Subject's summary:
-# Rounds played: {}
-# Opposite from own previous decision: {}
-# Opposite from computer's previous decision: {}
-
-# Final score:
-#     Subj   {} - {}  Comp"""
-
-# rounds_played = comp_points + subj_points
-# print(res_print.format(rounds_played, switch_from_own, switch_from_comp, subj_points, comp_points))
 
 
 

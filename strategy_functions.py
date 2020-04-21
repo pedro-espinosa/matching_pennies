@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-A module containing functions for:
-    - Gathering input from the experimenter to choose the computer's strategy'
-    - The computer's strategy as specified by the experimenter
+A module containing most functions of the matching_pennies experiment and Object Classes.
+It also contains built-in tests for the functions for when the module runs as __main__
+
+   Functions:
+    - input_comp_str() : Gathers input from the experimenter to choose the computer's strategy.
+    - input_bias_weighting : Gathers input from experimenter to define probability of bias when strategies B or C are chosen.
+    - strategy_a : Selects heads or tails with equal probability
+    - strategy_b : Selects heads or tails with a given bias (h_bias) for heads
+    - strategy_c : Selects heads or tails with a given bias (t_bias) for tails
+    
+    
+   Classes:
+    - Data :  A class to store the relevant data this experiment yields. Includes a functions that generates a summary printout for the experimenter to see in the console when the trial is over.
 """
 import random
 import mock
 
+#%% Functions for selecting computer's strategy and strategy details (in case they apply)
 
-#Common framework for the biased strategies (b and c) in a function that is used in the main function of defining computer strategy (input_comp_str())
+#Common framework for the biased strategies (b and c) in a function that is used in: input_comp_str()
 def input_bias_weighting(bias_strat):
     """
     Receives input from experimenter to define the weighting of the bias for biased
@@ -129,13 +140,14 @@ def input_comp_str():
 
 
 
-#Functions to generate computer response with each strategy
+#%% Functions to generate computer response with each strategy
+
 comp_options = ['h', 't']
 
 # A: Random
 def strategy_a():
     """
-    Selects heads or tails with equal probability'
+    Selects heads or tails with equal probability
 
     Returns
     -------
@@ -149,21 +161,134 @@ def strategy_a():
 
 # B
 def strategy_b(h_bias):
+    """
+    Selects heads or tails with a given bias (h_bias) for heads
+
+    Parameters
+    ----------
+    h_bias : float
+        A float between 0 and 1 that defines the probability of heads being chosen
+
+    Returns
+    -------
+    comp_response : str
+        A string that is either 'h' or 't' representing the computer's choice for the round'
+
+    """
     comp_response = random.choices(comp_options, weights = h_bias, k=1)
     comp_response = comp_response[0]
     return comp_response
 
 # C
 def strategy_c(t_bias):
+    """
+    Selects heads or tails with a given bias (t_bias) for tails
+
+    Parameters
+    ----------
+    t_bias : float
+        A float between 0 and 1 that defines the probability of tails being chosen
+
+    Returns
+    -------
+    comp_response : str
+        A string that is either 'h' or 't' representing the computer's choice for the round'
+    """
     comp_response = random.choices(comp_options[::-1], weights = t_bias, k=1) 
     comp_response = comp_response[0]
     return comp_response
-    #comp_options inverted so weighting applies to 't'. 
-    #Could have been stored in reverse order in input_comp_str() but i preferred to
-    #leave the first value as the bias towards what it says. So here comp_options are inverted.
+        #comp_options inverted so weighting applies to 't'. 
+        #Could have been stored in reverse order in input_comp_str() but i preferred to
+        #leave the first value as the bias towards what it says. So here comp_options are inverted.
 
 # Strategies D, E, F, and option G were kept in main for simplicity. The former under "#%% Generate computer's response" and the latter under "#If g is chosen"   
 
+
+#%% Object classes
+
+#Object class: Data
+#Create the class of objects called Data that can store all data that is relevant in the experiment. This makes it easier for experimenters to add commands at the end of this script that extract their data to a file of their preference.
+class Data:
+    """    
+         A class to store the relevant data this experiment yields.
+
+    ...
+
+    Attributes
+    ----------
+    subject_id : str
+        A string to identify the subject / participant
+    comps_strat : str
+        A string to identify the computer's strategy during the trial
+    opposite_own : int
+        An integer equal to the number of times the participant chose the opposite of their own previous choice
+    opposite_comp : int
+        An integer equal to the number of times the participant chose the opposite of the computer's previous choice
+    wins : int
+        An integer equal to the number of rounds the participant won
+    losses : int
+        An integer equal to the number of rounds the participant lost against the computer
+    rounds_played : int
+        An integer equal to the number of rounds played during the trial (calculated summing wins and losses)
+    
+
+    Methods
+    -------
+    resultsPrintout()
+        Prints a summary of the relevant results for the experimenter to see in the console when the trial is conlcuded.
+    """
+    
+    def __init__(self, subject_id, comps_strat, opposite_own, opposite_comp, wins, losses):
+        """
+        Parameters
+        ----------
+        subject_id : str
+            A string to identify the subject / participant
+        comps_strat : str
+            A string to identify the computer's strategy during the trial
+        opposite_own : int
+            An integer equal to the number of times the participant chose the opposite of their own previous choice
+        opposite_comp : int
+            An integer equal to the number of times the participant chose the opposite of the computer's previous choice
+        wins : int
+            An integer equal to the number of rounds the participant won
+        losses : int
+            An integer equal to the number of rounds the participant lost against the computer
+        rounds_played : int
+            An integer equal to the number of rounds played during the trial (calculated summing wins and losses)
+        """
+        self.subject_id = subject_id
+        self.comps_strat = comps_strat
+        self.opposite_own = opposite_own
+        self.opposite_comp = opposite_comp
+        self.wins = wins
+        self.losses = losses
+        self.rounds_played = self.wins + self.losses
+        
+    def resultsPrintout(self):
+        """
+        Prints a summary of the relevant results for the experimenter to see in the console when the trial is over.
+
+        Returns
+        -------
+        Prints a string containing relevant data of the trial, namely: subject ID, rounds played, choosing opposite from previous choice, choosing opposite from computer's previous choice, and the final score'
+
+        #It is possible that the sum of opposite_own and opposite_comp is not equal to the number of rounds.
+        """
+       
+        res_print = """\nResults of the trial
+
+        Summary:
+        Subject: {}
+        Rounds played: {}
+        Opposite from own previous decision: {}
+        Opposite from computer's previous decision: {}
+        
+        Final score:
+            Subj   {} - {}  Comp"""
+        
+        print(res_print.format(self.subject_id, self.rounds_played, self.opposite_own, self.opposite_comp, self.wins, self.losses))
+    
 
 #%% Built-in tests    
 if __name__ == '__main__':
@@ -201,7 +326,7 @@ if __name__ == '__main__':
         a_list.append(test_strategy_a)
     h_count = a_list.count('h')
     if 55 < h_count < 45:
-        print('strategy_a() is likely to be malfunctioning')
+        print('strategy_a() is likely to be malfunctioning. Run it a few times, this message should appear very very very rarely.')
         
     
     #test strategy_b()
@@ -221,6 +346,3 @@ if __name__ == '__main__':
     for i in c_list:
         if i == 'h':
             print('strategy_c() is not generating computer decisions according to bias')
-    
-
-    

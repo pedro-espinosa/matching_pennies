@@ -36,10 +36,6 @@ Heads or Tails?
 
 score_text = "{} - {}\n spacebar to continue"
 
-#%% Final score screen
-
-#This stimulus is in main.py under '#%% Final score screen' (for simplicity)
-
 
 #%% filepaths for outcome images
      
@@ -48,3 +44,10 @@ f_tt = os.path.join('images', 'tt.jpg')
 f_ht = os.path.join('images', 'ht.jpg')
 f_th = os.path.join('images', 'th.jpg')
 
+#%% Final score screen
+
+#This stimulus is in main.py under '#%% Final score screen' (for simplicity)
+
+#%% Summary printout for experimenter to see in the console when trial is over
+
+#This text runs in resultsPrintout() function in the class Data found in the strategy_functions module.
