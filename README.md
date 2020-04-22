@@ -1,5 +1,6 @@
 # matching_pennies
-[Too long to read: Run main.py]
+
+(Too long to read: Run [main.py](../main.py))
 
 This is a programme that enables participants to play a game of matching pennies against the computer. In this game, each player has a coin; on each round, each player decides which side of their coin to show. If both coins match, the participant gets a point (the 'even' player), if they don't match the computer gets a point (the 'odd' player).
 
@@ -11,6 +12,10 @@ When the programme starts, the experimenter inputs the subject's ID and specifie
 - e. Choose opposite of subject's previous decision
 - f. Choose subject's previous decision
 - g. Assign one of the previous 6 strategies randomly
+
+After this infromation is gathered the window is generated and the experiment is ready to start.
+
+The window displays a welcome message explaining the rules of the game. Then, after pressing space bar, the instructions are displayed including the ability to quit by pressing 'Q'. Then, the game starts for un unlimited amount of rounds until the participant presses 'Q'. For a limited number of rounds, comment the while loop 
 
 Additionally, the programme automatically prints some results at the end of the game, namely:
   - Final score
