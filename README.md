@@ -1,6 +1,6 @@
 # matching_pennies
 
-(Too long to read: Run [main.py](../blob/master/main.py))
+(Too long to read: Run [main.py](../master/main.py))
 
 This is a programme that enables participants to play a game of matching pennies against the computer. In this game, each player has a coin; on each round, each player decides which side of their coin to show. If both coins match, the participant gets a point (the 'even' player), if they don't match the computer gets a point (the 'odd' player).
 
