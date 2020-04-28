@@ -115,7 +115,7 @@ while True:
     round_stim = visual.TextStim(win, text = game_round_txt)
     round_stim.draw()
     win.flip()
-    print('Round ' + str(game_round)) #Display round number in console so that experimenter's can monitor.
+    print('Round ' + str(game_round)) #Display round number in console so that experimenters can monitor.
     core.wait(1.5)
     
     #%% Generate computer's response

@@ -2,7 +2,7 @@
 
 (Too long to read: Run [main.py][main])
 
-This is a programme that enables participants to play a game of matching pennies against the computer. In this game, each player has a coin; on each round, each player decides which side of their coin to show. If both coins match, the participant gets a point (the 'even' player), if they don't match the computer gets a point (the 'odd' player).
+This is a psychopy programme that enables participants to play a game of matching pennies against the computer. In this game, each player has a coin; on each round, each player decides which side of their coin to show. If both coins match, the participant gets a point (the 'even' player), if they don't match the computer gets a point (the 'odd' player).
 
 When the programme starts (by running [main.py][main]), the experimenter inputs the subject's ID and specifies the computer's strategy:
 - a. Random: Computer chooses face randomly with no bias.
@@ -15,7 +15,7 @@ When the programme starts (by running [main.py][main]), the experimenter inputs 
 
 After this information is gathered the window is generated and the experiment is ready to start.
 
-The window displays a welcome message explaining the rules of the game. Then, after pressing space bar, the instructions are displayed including the ability to quit by pressing 'Q'. Then, the game starts for un unlimited amount of rounds until the participant presses 'Q'. To set a limited number of rounds, open [main.py][main] and edit the following section from this:
+The window displays a welcome message explaining the rules of the game. Then, after pressing space bar, the instructions are displayed including the ability to quit by pressing 'Q'. Then, the game starts for un unlimited amount of rounds until the participant presses 'Q'. To set a limited number of rounds, open [main.py][main] and go to the following section:
 ```python
 #%% Rounds Loop starts
 
@@ -23,7 +23,7 @@ while True:
 #For a limited number of rounds you can uncomment and edit the following line of code (and comment the previous line):
 #for x in range(1, 11):
 ```
-To this:
+Comment the while loop and uncomment the for loop like so:
 ```python
 #%% Rounds Loop starts
 
@@ -31,7 +31,7 @@ To this:
 #For a limited number of rounds you can uncomment and edit the following line of code (and comment the previous line):
 for x in range(1, 11):
 ```
-And adjust the second number in the ```range(p, q)``` function so that q = desired number of rounds + 1
+Adjust the second number in the ```range(p, q)``` function so that q = desired number of rounds + 1
 
 After each choice, the participant receives feedback by seeing an image of their coin and the computer's coin as well as a message indicating if they won or lost the round and the current score. The images that are displayed can be found [here][images] as jpg files.
 
