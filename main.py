@@ -8,16 +8,6 @@ from psychopy import visual, core, event
 import strategy_functions
 import stimuli
 
-
-#%% Hardware specifications
-"""
-monitor_dims = hardware_mod.get_curr_screen_dim()
-screen_width = monitor_dims[0]
-screen_height = monitor_dims[1]
-
-mon = monitors.Monitor('my monitor')
-monitors.Monitor.setSizePix(mon, monitor_dims)
-"""
 #%% Experimenter input to define computer's strategy
 
 print("""\nDear experimenter, Welcome to the matching pennies experiment.
@@ -29,10 +19,7 @@ subject_id = input('Subject ID: ')
 
 #Let experimenter define computer strategy
 comp_str = strategy_functions.input_comp_str()
-
-
-
-    
+  
 
 #%% Window
 
@@ -55,7 +42,7 @@ tt_image = visual.ImageStim(win, image = stimuli.f_tt, pos =(0, .25))
 ht_image = visual.ImageStim(win, image = stimuli.f_ht, pos =(0, .25))
 th_image = visual.ImageStim(win, image = stimuli.f_th, pos =(0, .25))
 
-#I left this function in main so that it can interact directly with win. It is still tested when running strategy_functions.py as __main__
+#I left this function in main so that it can interact directly with win (the window). It is still tested when running strategy_functions.py as __main__
 def score_fn(subj_score, comp_score):
     """
     Generates the TextStim with the updated score values
@@ -116,12 +103,19 @@ prev_response = 0       #Starts as 0 for round 1 in comp strategy E
 switch_from_own = 0
 switch_from_comp = 0
 
+
+#%% Rounds Loop starts
+
 while True:
+#For a limited number of rounds you can uncomment and edit the following line of code (and comment the previous line):
+#for x in range(1, 11):
+
     #Present round number
     game_round_txt = 'Round ' + str(game_round)
     round_stim = visual.TextStim(win, text = game_round_txt)
     round_stim.draw()
     win.flip()
+    print('Round ' + str(game_round)) #Display round number in console so that experimenter's can monitor.
     core.wait(1.5)
     
     #%% Generate computer's response

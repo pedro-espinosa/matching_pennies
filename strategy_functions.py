@@ -295,8 +295,9 @@ if __name__ == '__main__':
    
     #Test input_bias_weighting(b). It uses the mock module to mock the user typing in the input.
     def test_input_bias_weighting(strat):
-       with mock.patch('builtins.input', return_value = 0.876):
-           assert input_bias_weighting(strat) == [0.876, 1 - 0.876]
+        test_value = 0.876
+        with mock.patch('builtins.input', return_value = test_value):
+            assert input_bias_weighting(strat) == [test_value, 1 - test_value]
     
     try:
         test_input_bias_weighting('b')
@@ -314,8 +315,10 @@ if __name__ == '__main__':
     #Test the bias weighting function raises an error with wrong input
     try:
         input_bias_weighting('d')
+        print("input_bias_weighting is accepting 'd' as a valid argument when only 'b' and 'c' should be accepted")
     except ValueError:
-        print("input_bias_weighting function raises error on wrong letter successfully")
+        pass
+        #Ignore this: #print("input_bias_weighting function raises ValueError on wrong letter successfully")
         
    
     
