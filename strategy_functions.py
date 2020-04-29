@@ -337,18 +337,19 @@ if __name__ == '__main__':
    
     
     #test strategy_a()
+    #Being a 50-50 probabilistic function, it is highly unlikely that after 100 iterations the results are skewed beyond a +- .05 bias.
     a_list = []
     for i in range(1, 100):
         test_strategy_a = strategy_a()
         a_list.append(test_strategy_a)
     h_count = a_list.count('h')
     if 55 < h_count < 45:
-        print('strategy_a() is likely to be malfunctioning. Run it a few times, this message should appear very very very rarely.')
+        print('strategy_a() is very very likely to be malfunctioning. Run it a few times, this message should appear very very very rarely.')
         
     
     #test strategy_b()
     #The function is probabilistic, so the test runs by specifying a bias of 1.0 towards heads, meaning that all iterations
-    #of the function must output 'h'
+    #of the function must output 'h'. Otherwise, a warning is printed.
     b_list = []
     for i in range(1, 100):
         test_strategy_b = strategy_b([1, 0]) 
@@ -360,7 +361,7 @@ if __name__ == '__main__':
     
     #test strategy_c()
     #The function is probabilistic, so the test runs by specifying a bias of 1.0 towards tails, meaning that all iterations
-    #of the function must output 't'
+    #of the function must output 't'. Otherwise, a warning is printed.
     c_list = []
     for i in range(1, 100):
         test_strategy_c = strategy_c([1, 0]) 
