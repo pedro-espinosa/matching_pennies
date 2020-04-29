@@ -1,4 +1,4 @@
-# matching_pennies
+# Matching Pennies
 
 (Too long to read: Run [main.py][main])
 
