@@ -87,13 +87,31 @@ def input_comp_str():
     use during the game of matching pennies against the current subject. For the biased
     strategies it also takes input for the weighting of the bias.
     
-    ARGUMENTS
+    Arguments
+    ----------
     Takes no arguments
     
-    RETURNS
-    The letter of the strategy and in the case of biased strategies (b and c) it also returns
-    the weighting of the bias as a list of two values, the first value corresponds to the bias
+    Returns: STR or tuple
+    ----------
+    The letter of the strategy as a string
+    
+    In the case of biased strategies (b and c) it returns a tuple containing the string 'b' or 'c' and
+    the weighting of the bias as a nested list of two values, the first value corresponds to the bias
     weighting of the side of interest.
+    
+    Examples
+    ---------
+    x = input_comp_str()
+    #experimenter inputs 'a'#
+    print(x)
+    a
+    
+    y = input_comp_str
+    #experimenter inputs 'b' and then 0.9#
+    print(y)
+    ('b', [0.9, 0.09999999999999998])
+    
+    
     """
     
     allowed_inputs = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
