@@ -51,7 +51,9 @@ To run the experiment, run [main.py][main]
 Most stimuli are defined in [stimuli.py][stimuli] (text and images) although a few remain in [main.py][main] for simplicity (such as the text of final score screen and the text that is displayed in the console for the experimenter).
 
 #### Images directory
-The [images directory][images] contains the files of the images that are displayed for each possible outcome (as jpg files). It also includes the original images of the coins as png files and a directory with [supporting documents][supporting documents]
+The [images directory][images] contains the files of the images that are displayed for each possible outcome (as jpg files). It also includes the original images of the coins as png files and a directory with [supporting documents][supporting documents].
+
+(You'll notice the images that get displayed are one for every possible outcome, rather than just having the programme use the two coin images. This is because I initially had a psychopy bug that made the location of objects on the screen a bit unpredictable, thus I sacrificed some flexibility for robustness. However all necessary documents are there if you want to create new stimuli).
 
 ### Functions module
 Most functions are defined in [strategy_functions.py][strategy] and are tested when [strategy_functions.py][strategy] is run as ```__main__```
