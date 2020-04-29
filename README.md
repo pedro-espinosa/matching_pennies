@@ -33,9 +33,11 @@ for x in range(1, 11):
 ```
 Adjust the second number in the ```range(p, q)``` function so that q = desired number of rounds + 1
 
-After each choice, the participant receives feedback by seeing an image of their coin and the computer's coin as well as a message indicating if they won or lost the round and the current score. The images that are displayed can be found [here][images] as jpg files.
+After each choice, the participant receives feedback by seeing an image of their coin, the computer's coin, a message indicating if they won or lost the round and the current score. The images that are displayed can be found [here][images] as jpg files.
 
 Additionally, the programme automatically prints some results in the console at the end of the game, namely:
+  - Subject ID
+  - Rounds played
   - Final score
   - How often the subject switched their choice so that it was different from their choice in the previous round
   - How often the subject switched their choice so that it was different from the computer’s choice in the previous round.
