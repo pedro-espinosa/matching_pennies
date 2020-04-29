@@ -295,9 +295,24 @@ if __name__ == '__main__':
    
     #Test input_bias_weighting(b). It uses the mock module to mock the user typing in the input.
     def test_input_bias_weighting(strat):
+        """
+        A test function to test the input_bias_weighting function that gathers inputs for
+        strategies b and c.
+
+        Parameters
+        ----------
+        strat : STR
+            A string that is either 'b' or 'c', indicating the strategy for which the output is intended.
+
+        Returns
+        -------
+        Asserts whether input_bias_weighting is working as expected
+
+        """
         test_value = 0.876
         with mock.patch('builtins.input', return_value = test_value):
             assert input_bias_weighting(strat) == [test_value, 1 - test_value]
+    #How to use mock.patch : https://forum.learncodethehardway.com/t/testing-input-and-print/1757
     
     try:
         test_input_bias_weighting('b')
@@ -318,7 +333,6 @@ if __name__ == '__main__':
         print("input_bias_weighting is accepting 'd' as a valid argument when only 'b' and 'c' should be accepted")
     except ValueError:
         pass
-        #Ignore this: #print("input_bias_weighting function raises ValueError on wrong letter successfully")
         
    
     
@@ -333,6 +347,8 @@ if __name__ == '__main__':
         
     
     #test strategy_b()
+    #The function is probabilistic, so the test runs by specifying a bias of 1.0 towards heads, meaning that all iterations
+    #of the function must output 'h'
     b_list = []
     for i in range(1, 100):
         test_strategy_b = strategy_b([1, 0]) 
@@ -340,8 +356,11 @@ if __name__ == '__main__':
     for i in b_list:
         if i == 't':
             print("strategy_b() is not generating computer decisions according to bias")
+            break
     
     #test strategy_c()
+    #The function is probabilistic, so the test runs by specifying a bias of 1.0 towards tails, meaning that all iterations
+    #of the function must output 't'
     c_list = []
     for i in range(1, 100):
         test_strategy_c = strategy_c([1, 0]) 
@@ -349,3 +368,4 @@ if __name__ == '__main__':
     for i in c_list:
         if i == 'h':
             print('strategy_c() is not generating computer decisions according to bias')
+            break
