@@ -8,11 +8,11 @@ from psychopy import visual, core, event
 import strategy_functions
 import stimuli
 
-#%% Experimenter input to define computer's strategy
+#%% Experimenter input to define subject ID and computer's strategy
 
 print("""\nDear experimenter, Welcome to the matching pennies experiment.
-      Before handing the computer over to the participant please fill
-      in the following specifications.""")
+Before handing the computer over to the participant please 
+fill in the following specifications.""")
 
 
 subject_id = input('Subject ID: ')
